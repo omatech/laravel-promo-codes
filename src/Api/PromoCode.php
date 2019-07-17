@@ -67,14 +67,9 @@ class PromoCode
     /**
      * @param int $id
      */
-    public function disable(int $id)
+    public function disable(int $id): void
     {
-        //TODO
-        //    function disable($id)
-        //    {
-        //        $sql = "update coupons set active=0 where id=$id";
-        //        return parent::update_one($sql);
-        //    }
+        $this->promoCode->disable($id);
     }
 
 //

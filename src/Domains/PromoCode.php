@@ -3,6 +3,7 @@
 namespace Omatech\LaravelPromoCodes\Domains;
 
 use Illuminate\Support\Str;
+use Omatech\LaravelPromoCodes\Contracts\DisablePromoCode;
 use Omatech\LaravelPromoCodes\Contracts\FindPromoCode;
 use Omatech\LaravelPromoCodes\Contracts\FindPromoCodeByCode;
 use Omatech\LaravelPromoCodes\Contracts\PromoCode as PromoCodeInterface;
@@ -92,6 +93,14 @@ class PromoCode implements PromoCodeInterface
         return $this;
     }
 
+    /**
+     * @param int $id
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function disable(int $id): void
+    {
+        app()->make(DisablePromoCode::class)->make($id);
+    }
 
     /**
      * @return bool
@@ -231,6 +240,9 @@ class PromoCode implements PromoCodeInterface
         $this->startDate = $startDate;
     }
 
+    /**
+     * @return bool
+     */
     public function isStarted()
     {
         return $this->startDate < now();
@@ -252,6 +264,9 @@ class PromoCode implements PromoCodeInterface
         $this->endDate = $endDate;
     }
 
+    /**
+     * @return bool
+     */
     public function isExpired()
     {
         return $this->endDate < now();

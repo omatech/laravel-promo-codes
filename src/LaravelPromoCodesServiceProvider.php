@@ -4,8 +4,10 @@ namespace Omatech\LaravelPromoCodes;
 
 use Illuminate\Support\ServiceProvider;
 use Omatech\LaravelPromoCodes\Api\PromoCode;
+use Omatech\LaravelPromoCodes\Contracts\DisablePromoCode as DisablePromoCodeInterface;
 use Omatech\LaravelPromoCodes\Contracts\FindPromoCode as FindPromoCodeInterface;
 use Omatech\LaravelPromoCodes\Contracts\FindPromoCodeByCode as FindPromoCodeByCodeInterface;
+use Omatech\LaravelPromoCodes\Repositories\PromoCode\DisablePromoCode;
 use Omatech\LaravelPromoCodes\Repositories\PromoCode\FindPromoCode;
 use Omatech\LaravelPromoCodes\Repositories\PromoCode\FindPromoCodeByCode;
 
@@ -47,8 +49,9 @@ class LaravelPromoCodesServiceProvider extends ServiceProvider
      */
     private function binding(): void
     {
-        $this->app->bind(\Omatech\LaravelPromoCodes\Contracts\PromoCode::class, \Omatech\LaravelPromoCodes\Domains\PromoCode::class);
+        $this->app->bind(DisablePromoCodeInterface::class, DisablePromoCode::class);
         $this->app->bind(FindPromoCodeInterface::class, FindPromoCode::class);
         $this->app->bind(FindPromoCodeByCodeInterface::class, FindPromoCodeByCode::class);
+        $this->app->bind(\Omatech\LaravelPromoCodes\Contracts\PromoCode::class, \Omatech\LaravelPromoCodes\Domains\PromoCode::class);
     }
 }
