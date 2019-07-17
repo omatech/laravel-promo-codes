@@ -9,23 +9,6 @@ use Omatech\LaravelPromoCodes\Repositories\PromoCodeRepository;
 
 class FindPromoCode extends PromoCodeRepository implements FindPromoCodeInterface
 {
-
-    /**
-     * @var PromoCodeInterface
-     */
-    private $promoCode;
-
-    /**
-     * FindPromoCode constructor.
-     * @param PromoCodeInterface $promoCode
-     * @throws \Exception
-     */
-    public function __construct(PromoCodeInterface $promoCode)
-    {
-        parent::__construct();
-        $this->promoCode = $promoCode;
-    }
-
     /**
      * @param int $id
      * @return Model|null
