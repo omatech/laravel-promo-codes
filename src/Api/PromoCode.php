@@ -2,21 +2,22 @@
 
 namespace Omatech\LaravelPromoCodes\Api;
 
+use Omatech\LaravelPromoCodes\Contracts\PromoCode as PromoCodeInterface;
+
 class PromoCode
 {
     /**
-     * @var \Omatech\LaravelPromoCodes\Contracts\PromoCode
+     * @var PromoCodeInterface
      */
     private $promoCode;
 
     /**
      * PromoCode constructor.
-     * @param \Omatech\LaravelPromoCodes\Contracts\PromoCode $promoCode
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function __construct(\Omatech\LaravelPromoCodes\Contracts\PromoCode $promoCode)
+    public function __construct()
     {
-
-        $this->promoCode = $promoCode;
+        $this->promoCode = app()->make(PromoCodeInterface::class);
     }
 
     /**
@@ -48,7 +49,7 @@ class PromoCode
 
     /**
      * @param $id
-     * @return null|\Omatech\LaravelPromoCodes\Contracts\PromoCode
+     * @return null|PromoCodeInterface
      */
     public function find($id)
     {
@@ -57,7 +58,7 @@ class PromoCode
 
     /**
      * @param $code
-     * @return null|\Omatech\LaravelPromoCodes\Contracts\PromoCode
+     * @return null|PromoCodeInterface
      */
     public function findByCode($code)
     {
@@ -74,7 +75,7 @@ class PromoCode
 
     /**
      * @param array $data
-     * @return \Omatech\LaravelPromoCodes\Contracts\PromoCode
+     * @return PromoCodeInterface
      */
     public function generate(array $data)
     {
