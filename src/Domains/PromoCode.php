@@ -32,7 +32,7 @@ class PromoCode implements PromoCodeInterface
      * @return null|PromoCodeInterface
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function find(int $id): ?PromoCodeInterface
+    public static function find(int $id): ?PromoCodeInterface
     {
         return app()->make(FindPromoCode::class)->make($id);
     }
@@ -42,7 +42,7 @@ class PromoCode implements PromoCodeInterface
      * @return null|PromoCodeInterface
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function findByCode(string $code): ?PromoCodeInterface
+    public static function findByCode(string $code): ?PromoCodeInterface
     {
         return app()->make(FindPromoCodeByCode::class)->make($code);
     }

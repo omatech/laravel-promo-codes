@@ -52,7 +52,7 @@ class PromoCode
      */
     public function find($id)
     {
-        return $this->promoCode->find($id);
+        return $this->promoCode::find($id);
     }
 
     /**
@@ -61,7 +61,7 @@ class PromoCode
      */
     public function findByCode($code)
     {
-        return $this->promoCode->findByCode($code);
+        return $this->promoCode::findByCode($code);
     }
 
     /**
