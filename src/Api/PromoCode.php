@@ -72,6 +72,15 @@ class PromoCode
         $this->promoCode->disable($id);
     }
 
+    /**
+     * @param array $data
+     * @return \Omatech\LaravelPromoCodes\Contracts\PromoCode
+     */
+    public function generate(array $data)
+    {
+        return $this->promoCode::generate($data);
+    }
+
 //
 //    function number_of_uses($id)
 //    {
@@ -112,34 +121,7 @@ class PromoCode
 //        }
 //        return false;
 //    }
-//
-//    function genera_promo_code($base)
-//    {
-//        $base = filter_text($base);
-//        $base = preg_replace("/[^a-zA-Z0-9]+/", "", $base);
-//        $ret = substr(strtoupper($base), 0, 6);
-//        $ret = str_replace('-', 'J', $ret);
-//        $ret = str_replace('.', 'Q', $ret);
-//        $ret = str_replace('=', 'M', $ret);
-//        $ret = str_replace('1', 'X', $ret);
-//
-//        $exists = true;
-//        $i = 1;
-//        while ($exists) {
-//            $sql = "select count(*) num
-//				from coupons
-//				where code='" . $ret . $i . "'
-//			";
-//            $row = parent::get_one($sql);
-//            //echo $row['num']." codes for $ret$i\n";
-//            $exists = $row['num'] > 0;
-//            if ($exists) {
-//                $i++;
-//            }
-//        }
-//        return $ret . $i;
-//    }
-//
+////
 //    function genera_reward_promo_code($user_id, $first_name, $friend_user_id, $friend_first_name, $order_id)
 //    {
 //        $promo_code = self::genera_random_promo_code();
@@ -155,11 +137,6 @@ class PromoCode
 //        return $promo_code;
 //    }
 //
-//    function genera_random_promo_code()
-//    {
-//        $base = self::generateRandomString(6);
-//        return self::genera_promo_code($base);
-//    }
 //
 //    function genera_random_promo_code_with_prefix($prefix = '', $length = 5)
 //    {
@@ -177,16 +154,6 @@ class PromoCode
 //        }
 //    }
 //
-//    function generateRandomString($length = 10)
-//    {
-//        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-//        $charactersLength = strlen($characters);
-//        $randomString = '';
-//        for ($i = 0; $i < $length; $i++) {
-//            $randomString .= $characters[rand(0, $charactersLength - 1)];
-//        }
-//        return $randomString;
-//    }
 //
 //    function get_user_promo_code($user_id)
 //    {

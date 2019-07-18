@@ -27,7 +27,7 @@ class CreatePromoCodesTable extends Migration
             $table->boolean('one_use_only')->nullable();
             $table->boolean('customer_one_use_only')->nullable();
             $table->boolean('active')->default(true);
-            $table->string('code')->nullable();
+            $table->string('code')->unique();
             $table->text('action')->nullable();
 
             $table->timestamps();

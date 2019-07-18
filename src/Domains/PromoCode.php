@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use Omatech\LaravelPromoCodes\Contracts\DisablePromoCode;
 use Omatech\LaravelPromoCodes\Contracts\FindPromoCode;
 use Omatech\LaravelPromoCodes\Contracts\FindPromoCodeByCode;
+use Omatech\LaravelPromoCodes\Contracts\GeneratePromoCode;
 use Omatech\LaravelPromoCodes\Contracts\PromoCode as PromoCodeInterface;
 
 class PromoCode implements PromoCodeInterface
@@ -100,6 +101,16 @@ class PromoCode implements PromoCodeInterface
     public function disable(int $id): void
     {
         app()->make(DisablePromoCode::class)->make($id);
+    }
+
+    /**
+     * @param array $data
+     * @return PromoCodeInterface
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public static function generate(array $data): PromoCodeInterface
+    {
+        return app()->make(GeneratePromoCode::class)->make($data);
     }
 
     /**
