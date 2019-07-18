@@ -4,6 +4,7 @@ namespace Omatech\LaravelPromoCodes\Domains;
 
 use Illuminate\Support\Str;
 use Omatech\LaravelPromoCodes\Contracts\DisablePromoCode;
+use Omatech\LaravelPromoCodes\Contracts\FindAllPromoCodes;
 use Omatech\LaravelPromoCodes\Contracts\FindPromoCode;
 use Omatech\LaravelPromoCodes\Contracts\FindPromoCodeByCode;
 use Omatech\LaravelPromoCodes\Contracts\GeneratePromoCode;
@@ -45,6 +46,15 @@ class PromoCode implements PromoCodeInterface
     public static function findByCode(string $code): ?PromoCodeInterface
     {
         return app()->make(FindPromoCodeByCode::class)->make($code);
+    }
+
+    /**
+     * @return array
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public static function findAll(): array
+    {
+        return app()->make(FindAllPromoCodes::class)->make();
     }
 
     /**

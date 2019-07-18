@@ -18,7 +18,7 @@ $factory->define(PromoCode::class, function (Faker $faker) {
         'one_use_only' => false,
         'customer_one_use_only' => false,
         'active' => true,
-        'code' => $faker->word,
+        'code' => $faker->word.$faker->randomNumber(5),
         'action' => $faker->text(),
     ];
 

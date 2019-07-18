@@ -81,6 +81,14 @@ class PromoCode
         return $this->promoCode::generate($data);
     }
 
+    /**
+     * @return array
+     */
+    public function findAll()
+    {
+        return $this->promoCode::findAll();
+    }
+
 //
 //    function number_of_uses($id)
 //    {
