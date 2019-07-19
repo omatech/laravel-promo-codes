@@ -35,9 +35,10 @@ class GeneratePromoCode extends PromoCodeRepository implements GeneratePromoCode
      */
     public function make(array $data): PromoCodeInterface
     {
-        if (empty($data['code'])) {
+        if (!isset($data['code']) || empty($data['code'])) {
 
-            $data['code'] = $this->generateCode();
+            $prefix = $data['prefix'] ?? null;
+            $data['code'] = $prefix . $this->generateCode();
 
         } else {
             $exists = $this->checkIfCodeExists($data['code']);

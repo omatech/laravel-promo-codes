@@ -21,6 +21,20 @@ composer require omatech/laravel-promo-codes
 // Usage description here
 ```
 
+Generate promotional codes with a prefix:
+``` php
+
+$data = [
+    'prefix' => 'EXAMPLE',
+    ...
+];
+
+$promoCode = PromoCode::generate($data);
+
+echo $promoCode->getCode(); //EXAMPLEXXXXX
+
+```
+
 ### Testing
 
 ``` bash
@@ -41,7 +55,8 @@ If you discover any security related issues, please email aroca@omatech.com inst
 
 ## Credits
 
-- [Adrià Roca](https://github.com/omatech)
+- [Adrià Roca](https://github.com/adriaroca)
+- [Agustí Pons](https://github.com/aponscat)
 - [All Contributors](../../contributors)
 
 ## License

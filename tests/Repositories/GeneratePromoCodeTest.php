@@ -53,4 +53,21 @@ class GeneratePromoCodeTest extends RepositoriesBaseTestCase
         ]);
     }
 
+    public function test_generate_new_promo_code_with_prefix()
+    {
+        $prefix = 'TEST';
+        $data = factory($this->promoCodeModelName)->make()->toArray();
+        unset($data['code']);
+        $data['prefix'] = $prefix;
+
+        $generate = $this->generatePromoCode->make($data);
+
+        $this->assertTrue(strpos($generate->getCode(), 'TEST') !== false);
+
+        $this->assertDatabaseHas('promo_codes', [
+            'id' => $generate->getId(),
+            'code' => $generate->getCode(),
+        ]);
+    }
+
 }

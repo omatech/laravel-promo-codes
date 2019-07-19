@@ -41,7 +41,7 @@ class BaseTestCase extends TestCase
      */
     public function getEnvironmentSetUp($app)
     {
-        include_once __DIR__ . '/../database/migrations/create_promo_codes_table.php.stub';
+        include_once __DIR__ . '/../database/migrations/2019_07_19_000000_create_promo_codes_table.php';
 
         (new \CreatePromoCodesTable())->up();
     }
