@@ -7,6 +7,7 @@ use Omatech\LaravelPromoCodes\Contracts\FindAllPromoCodes;
 use Omatech\LaravelPromoCodes\Contracts\FindPromoCode;
 use Omatech\LaravelPromoCodes\Contracts\FindPromoCodeByCode;
 use Omatech\LaravelPromoCodes\Contracts\GeneratePromoCode;
+use Omatech\LaravelPromoCodes\Contracts\UpdatePromoCode;
 
 class RepositoriesBaseTestCase extends BaseTestCase
 {
@@ -15,6 +16,7 @@ class RepositoriesBaseTestCase extends BaseTestCase
     protected $findAllPromoCode;
     protected $findPromoCodeByCode;
     protected $generatePromoCode;
+    protected $updatePromoCode;
 
     /**
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
@@ -28,6 +30,7 @@ class RepositoriesBaseTestCase extends BaseTestCase
         $this->findAllPromoCode = app()->make(FindAllPromoCodes::class);
         $this->findPromoCodeByCode = app()->make(FindPromoCodeByCode::class);
         $this->generatePromoCode = app()->make(GeneratePromoCode::class);
+        $this->updatePromoCode = app()->make(UpdatePromoCode::class);
 
     }
 }

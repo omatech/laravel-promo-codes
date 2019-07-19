@@ -90,6 +90,15 @@ class PromoCode
         return $this->promoCode::findAll();
     }
 
+    /**
+     * @param int $id
+     * @param array $data
+     */
+    public function update(int $id, array $data): void
+    {
+        $this->promoCode->update($id, $data);
+    }
+
 //
 //    function number_of_uses($id)
 //    {

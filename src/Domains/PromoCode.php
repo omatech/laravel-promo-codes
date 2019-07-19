@@ -9,6 +9,7 @@ use Omatech\LaravelPromoCodes\Contracts\FindPromoCode;
 use Omatech\LaravelPromoCodes\Contracts\FindPromoCodeByCode;
 use Omatech\LaravelPromoCodes\Contracts\GeneratePromoCode;
 use Omatech\LaravelPromoCodes\Contracts\PromoCode as PromoCodeInterface;
+use Omatech\LaravelPromoCodes\Contracts\UpdatePromoCode;
 
 class PromoCode implements PromoCodeInterface
 {
@@ -121,6 +122,16 @@ class PromoCode implements PromoCodeInterface
     public static function generate(array $data): PromoCodeInterface
     {
         return app()->make(GeneratePromoCode::class)->make($data);
+    }
+
+    /**
+     * @param int $id
+     * @param array $data
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function update(int $id, array $data): void
+    {
+        app()->make(UpdatePromoCode::class)->make($id, $data);
     }
 
     /**
