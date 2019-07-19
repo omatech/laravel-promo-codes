@@ -14,5 +14,5 @@ interface PromoCode
 
     public function fromArray(array $data): ?self;
 
-    public function update(int $id, array $data): void;
+    public function update(): void;
 }

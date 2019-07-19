@@ -2,6 +2,7 @@
 
 namespace Omatech\LaravelPromoCodes\Repositories\PromoCode;
 
+use Omatech\LaravelPromoCodes\Contracts\PromoCode;
 use Omatech\LaravelPromoCodes\Contracts\UpdatePromoCode as UpdatePromoCodeInterface;
 use Omatech\LaravelPromoCodes\Repositories\PromoCodeRepository;
 
@@ -25,10 +26,12 @@ class UpdatePromoCode extends PromoCodeRepository implements UpdatePromoCodeInte
 
     /**
      * @param int $id
-     * @param array $data
+     * @param PromoCode $promoCode
      */
-    public function make(int $id, array $data): void
+    public function make(int $id, PromoCode $promoCode): void
     {
+        $data = $promoCode->toArray();
+
         foreach ($data as $key => $datum) {
             if (!in_array($key, $this->updatableFields)) {
                 unset($data[$key]);

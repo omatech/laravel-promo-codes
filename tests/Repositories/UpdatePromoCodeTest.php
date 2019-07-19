@@ -13,7 +13,7 @@ class UpdatePromoCodeTest extends RepositoriesBaseTestCase
 
         $data['title'] = $title;
 
-        $this->updatePromoCode->make($data['id'], $data);
+        $this->updatePromoCode->make($data['id'], $this->promoCodeDomain->fromArray($data));
 
         $this->assertDatabaseHas('promo_codes', [
             'id' => $data['id'],
@@ -28,7 +28,7 @@ class UpdatePromoCodeTest extends RepositoriesBaseTestCase
 
         $data['code'] = $code;
 
-        $this->updatePromoCode->make($data['id'], $data);
+        $this->updatePromoCode->make($data['id'], $this->promoCodeDomain->fromArray($data));
 
         $this->assertDatabaseMissing('promo_codes', [
             'id' => $data['id'],
@@ -43,7 +43,7 @@ class UpdatePromoCodeTest extends RepositoriesBaseTestCase
 
         $data['active'] = $active;
 
-        $this->updatePromoCode->make($data['id'], $data);
+        $this->updatePromoCode->make($data['id'], $this->promoCodeDomain->fromArray($data));
 
         $this->assertDatabaseMissing('promo_codes', [
             'id' => $data['id'],

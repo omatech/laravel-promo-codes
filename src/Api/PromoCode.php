@@ -96,7 +96,10 @@ class PromoCode
      */
     public function update(int $id, array $data): void
     {
-        $this->promoCode->update($id, $data);
+        $promoCode = $this->promoCode;
+        $promoCode->fromArray($data);
+        $promoCode->setId($id);
+        $promoCode->update();
     }
 
 //

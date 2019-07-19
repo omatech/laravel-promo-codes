@@ -106,6 +106,29 @@ class PromoCode implements PromoCodeInterface
     }
 
     /**
+     * @return array
+     */
+    public function toArray(): array
+    {
+        $object = get_object_vars($this);
+
+        $array = [];
+
+        foreach ($object as $key => $value) {
+            $snakeKey = Str::snake($key);
+            if (is_object($value) && in_array('toArray', get_class_methods($value))) {
+                $array[$snakeKey] = $value->toArray();
+            } elseif (is_object($value) && $value instanceof \DateTime) {
+                $array[$snakeKey] = $value->format('Y-m-d H:i:s');
+            } elseif (!is_object($value)) {
+                $array[$snakeKey] = $value;
+            }
+        }
+
+        return $array;
+    }
+
+    /**
      * @param int $id
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
@@ -125,13 +148,11 @@ class PromoCode implements PromoCodeInterface
     }
 
     /**
-     * @param int $id
-     * @param array $data
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function update(int $id, array $data): void
+    public function update(): void
     {
-        app()->make(UpdatePromoCode::class)->make($id, $data);
+        app()->make(UpdatePromoCode::class)->make($this->getId(), $this);
     }
 
     /**

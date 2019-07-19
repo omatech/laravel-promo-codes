@@ -4,5 +4,5 @@ namespace Omatech\LaravelPromoCodes\Contracts;
 
 interface UpdatePromoCode
 {
-    public function make(int $id, array $data): void;
+    public function make(int $id, PromoCode $data): void;
 }
