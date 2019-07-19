@@ -70,7 +70,9 @@ class PromoCode
      */
     public function disable(int $id): void
     {
-        $this->promoCode->disable($id);
+        $promoCode = $this->promoCode;
+        $promoCode->setId($id);
+        $this->promoCode->disable();
     }
 
     /**

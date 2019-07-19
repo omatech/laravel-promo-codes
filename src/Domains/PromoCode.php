@@ -129,12 +129,11 @@ class PromoCode implements PromoCodeInterface
     }
 
     /**
-     * @param int $id
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function disable(int $id): void
+    public function disable(): void
     {
-        app()->make(DisablePromoCode::class)->make($id);
+        app()->make(DisablePromoCode::class)->make($this->getId());
     }
 
     /**

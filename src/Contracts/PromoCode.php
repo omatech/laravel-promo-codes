@@ -4,7 +4,7 @@ namespace Omatech\LaravelPromoCodes\Contracts;
 
 interface PromoCode
 {
-    public function disable(int $id): void;
+    public function disable(): void;
 
     public static function find(int $id): ?self;
 
