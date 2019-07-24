@@ -4,6 +4,7 @@ namespace Omatech\LaravelPromoCodes\Test\Repositories;
 
 use Omatech\LaravelPromoCodes\Contracts\PromoCode;
 use Omatech\LaravelPromoCodes\Tests\RepositoriesBaseTestCase;
+use Omatech\LaravelPromoCodes\Tests\Resources\UserTestModel;
 
 class GeneratePromoCodeTest extends RepositoriesBaseTestCase
 {
@@ -67,6 +68,28 @@ class GeneratePromoCodeTest extends RepositoriesBaseTestCase
         $this->assertDatabaseHas('promo_codes', [
             'id' => $generate->getId(),
             'code' => $generate->getCode(),
+        ]);
+    }
+
+    public function test_generate_new_promo_code_for_specific_user()
+    {
+        $data = factory($this->promoCodeModelName)->make()->toArray();
+        unset($data['code']);
+
+        $data['related_id'] = 1;
+        $data['related_type'] = UserTestModel::class;
+
+        $generate = $this->generatePromoCode->make($data);
+
+        $this->assertDatabaseHas('promo_codes', [
+            'id' => $generate->getId(),
+            'code' => $generate->getCode(),
+        ]);
+
+        $this->assertDatabaseHas('model_promo_codes', [
+            'promo_code_id' => $generate->getId(),
+            'model_id' => 1,
+            'model_type' => UserTestModel::class,
         ]);
     }
 

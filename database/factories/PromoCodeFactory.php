@@ -9,7 +9,7 @@ $factory->define(PromoCode::class, function (Faker $faker) {
         'type' => $faker->word,
         'title' => $faker->text(45),
         'pct_discount' => $faker->randomFloat(2, 0, 100),
-        'amount_discount' => $faker->randomFloat(2),
+        'amount_discount' => $faker->randomFloat(2, 0, 20),
         'pct_shipping_discount' => $faker->randomFloat(2, 0, 100),
         'max_uses' => $faker->randomNumber(),
         'start_date' => $faker->dateTimeBetween('-10 days'),
@@ -39,5 +39,13 @@ $factory->state(PromoCode::class, 'not-started', function (Faker $faker){
         'start_date' => $faker->dateTimeBetween('+1 days', "+2 days"),
         'end_date' => $faker->dateTimeBetween('+3 days', '+10 days'),
     ];
+
+});
+
+$factory->state(PromoCode::class, 'with-related-user', function (Faker $faker){
+
+
+
+    return [];
 
 });

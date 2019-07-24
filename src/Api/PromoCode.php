@@ -3,6 +3,7 @@
 namespace Omatech\LaravelPromoCodes\Api;
 
 use Omatech\LaravelPromoCodes\Contracts\PromoCode as PromoCodeInterface;
+use Omatech\LaravelPromoCodes\Values\Relation;
 
 class PromoCode
 {
@@ -22,27 +23,32 @@ class PromoCode
 
     /**
      * @param $code
-     * @param $userId
+     * @param null $relatedId
+     * @param null $relatedType
      * @return bool
      */
-    public function check($code, $userId): bool
+    public function check($code, $relatedId = null, $relatedType = null): bool
     {
         $promoCode = $this->promoCode->findByCode($code);
 
-        //TODO si $row['first_order_only'] == 1 && $users->number_of_orders($userId) > 0, false
-        //TODO si $row['customer_one_use_only'] == 1 && $users->number_of_orders_with_coupon($userId, $code) > 0, false
+        if (!is_null($promoCode) && $relatedId && $relatedType && $promoCode->isFirstOrderOnly()) {
 
-        //TODO
-//        if ($_REQUEST['promo_code_row']['one_use_only'] == 1) {
-//            $promo_codes->disable($_REQUEST['promo_code_row']['id']);
-//        } else {// mirem si ha arribat al max_uses total
-//            if (isset($_REQUEST['promo_code_row']['max_uses']) && is_numeric($_REQUEST['promo_code_row']['max_uses'])) {
-//                $current_num_uses = $promo_codes->number_of_uses($_REQUEST['promo_code_row']['id']);
-//                if ($current_num_uses >= $_REQUEST['promo_code_row']['max_uses']) {
-//                    $promo_codes->disable($_REQUEST['promo_code_row']['id']);
-//                }
-//            }
-//        }
+            //TODO si $row['first_order_only'] == 1 && $users->number_of_orders($userId) > 0, false
+        }
+
+        if (!is_null($promoCode)
+            && $relatedId
+            && $relatedType
+            && $promoCode->isCustomerOneUseOnly()
+        ) {
+
+            $relation = new Relation($promoCode->getId(), $relatedId, $relatedType);
+
+            if ($promoCode->checkRelation($relation)) {
+                return false;
+            }
+
+        }
 
         return !is_null($promoCode) && $promoCode->isValid();
     }
@@ -104,19 +110,32 @@ class PromoCode
         $promoCode->update();
     }
 
-//
-//    function number_of_uses($id)
-//    {
-//        $sql = "select count(*) num
-//			from coupons_orders co
-//			where co.coupon_id=$id";
-//        $row = parent::get_one($sql);
-//        if ($row) {
-//            return ($row['num']);
+    public function redeem($code)
+    {
+        if (!$this->check($code)) {
+            //TODO error
+        }
+
+        $promoCode = $this->promoCode->findByCode($code);
+
+        //TODO redeem: vincular a un usuari / comanda / producte si és el cas
+
+
+        if ($promoCode->isOneUseOnly()) {
+            $this->disable($promoCode->getId());
+        }
+
+        //TODO
+//       // mirem si ha arribat al max_uses total
+//            if (isset($_REQUEST['promo_code_row']['max_uses']) && is_numeric($_REQUEST['promo_code_row']['max_uses'])) {
+//                $current_num_uses = $promo_codes->number_of_uses($_REQUEST['promo_code_row']['id']);
+//                if ($current_num_uses >= $_REQUEST['promo_code_row']['max_uses']) {
+//                    $promo_codes->disable($_REQUEST['promo_code_row']['id']);
+//                }
+//            }
 //        }
-//        return 0;
-//    }
-//
+
+    }
 
 //
 //    function create_promo_code_for_user($user_id)
@@ -144,7 +163,7 @@ class PromoCode
 //        }
 //        return false;
 //    }
-////
+
 //    function genera_reward_promo_code($user_id, $first_name, $friend_user_id, $friend_first_name, $order_id)
 //    {
 //        $promo_code = self::genera_random_promo_code();
@@ -159,24 +178,6 @@ class PromoCode
 //
 //        return $promo_code;
 //    }
-//
-//
-//    function genera_random_promo_code_with_prefix($prefix = '', $length = 5)
-//    {
-//        $base = self::generateRandomString($length);
-//        $sql = "select count(*) num
-//			from coupons
-//			where code='$prefix.$base'
-//		";
-//        $row = parent::get_one($sql);
-//        $exists = $row['num'] > 0;
-//        if ($exists) {
-//            return $this->genera_random_promo_code_with_prefix($prefix, $length);
-//        } else {// cas normal, no existia
-//            return $prefix . $base;
-//        }
-//    }
-//
 //
 //    function get_user_promo_code($user_id)
 //    {

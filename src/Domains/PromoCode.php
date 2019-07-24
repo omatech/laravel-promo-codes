@@ -3,6 +3,7 @@
 namespace Omatech\LaravelPromoCodes\Domains;
 
 use Illuminate\Support\Str;
+use Omatech\LaravelPromoCodes\Contracts\CheckRelated;
 use Omatech\LaravelPromoCodes\Contracts\DisablePromoCode;
 use Omatech\LaravelPromoCodes\Contracts\FindAllPromoCodes;
 use Omatech\LaravelPromoCodes\Contracts\FindPromoCode;
@@ -10,6 +11,7 @@ use Omatech\LaravelPromoCodes\Contracts\FindPromoCodeByCode;
 use Omatech\LaravelPromoCodes\Contracts\GeneratePromoCode;
 use Omatech\LaravelPromoCodes\Contracts\PromoCode as PromoCodeInterface;
 use Omatech\LaravelPromoCodes\Contracts\UpdatePromoCode;
+use Omatech\LaravelPromoCodes\Values\Relation;
 
 class PromoCode implements PromoCodeInterface
 {
@@ -56,6 +58,16 @@ class PromoCode implements PromoCodeInterface
     public static function findAll(): array
     {
         return app()->make(FindAllPromoCodes::class)->make();
+    }
+
+    /**
+     * @param Relation $relation
+     * @return bool
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function checkRelation(Relation $relation): bool
+    {
+        return app()->make(CheckRelated::class)->make($relation);
     }
 
     /**
@@ -341,6 +353,14 @@ class PromoCode implements PromoCodeInterface
     }
 
     /**
+     * @return bool
+     */
+    public function isFirstOrderOnly(): bool
+    {
+        return $this->firstOrderOnly === true;
+    }
+
+    /**
      * @return mixed
      */
     public function getOneUseOnly()
@@ -354,6 +374,11 @@ class PromoCode implements PromoCodeInterface
     public function setOneUseOnly(bool $oneUseOnly): void
     {
         $this->oneUseOnly = $oneUseOnly;
+    }
+
+    public function isOneUseOnly(): bool
+    {
+        return $this->oneUseOnly === true;
     }
 
     /**
@@ -370,6 +395,14 @@ class PromoCode implements PromoCodeInterface
     public function setCustomerOneUseOnly(bool $customerOneUseOnly): void
     {
         $this->customerOneUseOnly = $customerOneUseOnly;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCustomerOneUseOnly(): bool
+    {
+        return $this->customerOneUseOnly === true;
     }
 
     /**
