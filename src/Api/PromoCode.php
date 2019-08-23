@@ -31,13 +31,16 @@ class PromoCode
     {
         $promoCode = $this->promoCode->findByCode($code);
 
-        if (!is_null($promoCode) && $relatedId && $relatedType && $promoCode->isFirstOrderOnly()) {
+        if (is_null($promoCode)) {
+            return false;
+        }
+
+        if ($relatedId && $relatedType && $promoCode->isFirstOrderOnly()) {
 
             //TODO si $row['first_order_only'] == 1 && $users->number_of_orders($userId) > 0, false
         }
 
-        if (!is_null($promoCode)
-            && $relatedId
+        if ($relatedId
             && $relatedType
             && $promoCode->isCustomerOneUseOnly()
         ) {
@@ -50,7 +53,7 @@ class PromoCode
 
         }
 
-        return !is_null($promoCode) && $promoCode->isValid();
+        return $promoCode->isValid();
     }
 
     /**
@@ -110,6 +113,9 @@ class PromoCode
         $promoCode->update();
     }
 
+    /**
+     * @param $code
+     */
     public function redeem($code)
     {
         if (!$this->check($code)) {
@@ -125,17 +131,18 @@ class PromoCode
             $this->disable($promoCode->getId());
         }
 
+
         //TODO
 //       // mirem si ha arribat al max_uses total
-//            if (isset($_REQUEST['promo_code_row']['max_uses']) && is_numeric($_REQUEST['promo_code_row']['max_uses'])) {
-//                $current_num_uses = $promo_codes->number_of_uses($_REQUEST['promo_code_row']['id']);
-//                if ($current_num_uses >= $_REQUEST['promo_code_row']['max_uses']) {
-//                    $promo_codes->disable($_REQUEST['promo_code_row']['id']);
-//                }
+//        $maxUses = $promoCode->getMaxUses();
+//        if (is_numeric($maxUses)) {
+//            $current_num_uses = $promo_codes->number_of_uses($promoCode->getId());
+//            if ($current_num_uses >= $maxUses) {
+//                $this->disable($promoCode->getId());
 //            }
 //        }
-
     }
+
 
 //
 //    function create_promo_code_for_user($user_id)

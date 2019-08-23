@@ -41,11 +41,3 @@ $factory->state(PromoCode::class, 'not-started', function (Faker $faker){
     ];
 
 });
-
-$factory->state(PromoCode::class, 'with-related-user', function (Faker $faker){
-
-
-
-    return [];
-
-});
