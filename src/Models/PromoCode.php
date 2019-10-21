@@ -5,6 +5,7 @@ namespace Omatech\LaravelPromoCodes\Models;
 class PromoCode extends \Illuminate\Database\Eloquent\Model
 {
     protected $fillable = [
+        'user_id',
         'type',
         'title',
         'pct_discount',
