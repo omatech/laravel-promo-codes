@@ -15,4 +15,19 @@ interface PromoCode
     public function fromArray(array $data): ?self;
 
     public function update(): void;
+
+    public function checkCodeConditions(int $authUserId): bool;
+
+    // public function createReferral(int $code, int $referralUser, int $authUserId): int;
+
+    // public function updateReferral(int $referralId, int $promoUserId): void;
+
+
+
+
+    // public function promoCodeConstructWhenReferral(int $promoUserId): array;
+
+    // public function updateIfPromoMember(int $codeId, int $referralCodeId): bool;
+
+
 }

@@ -2,8 +2,13 @@
 
 namespace Omatech\LaravelPromoCodes\Models;
 
-class PromoCode extends \Illuminate\Database\Eloquent\Model
+use \Illuminate\Database\Eloquent\Model;
+use Omatech\LaravelPromoCodes\Models\Referral;
+
+class PromoCode extends Model
 {
+    protected $table = "promo_codes";
+
     protected $fillable = [
         'user_id',
         'type',
@@ -21,4 +26,18 @@ class PromoCode extends \Illuminate\Database\Eloquent\Model
         'code',
         'action',
     ];
+
+
+    // public function user(){
+    //     return $this->belongsTo(User::class, 'id', 'personal_code_id');
+    // }
+
+
+    public function user(){
+        return $this->belongsTo(config('promo-codes.options.users.model'), 'id', 'personal_code_id');
+    }
+
+    public function referral(){
+        return $this->hasOne(Referral::class, 'user_referral_id', 'user_id');
+    }
 }

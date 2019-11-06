@@ -14,8 +14,8 @@ class FindPromoCodeByCode extends PromoCodeRepository implements FindPromoCodeBy
      */
     public function make(string $code): ?PromoCode
     {
-        $model = $this->model->where('code', $code)->first();
-
+        $model = $this->model->with('user','referral')->where('code', $code)->first();
+        
         if (is_null($model))
             return null;
 

@@ -3,3 +3,6 @@ build
 composer.lock
 html
 vendor
+.history
+~/
+..gitignore.swp

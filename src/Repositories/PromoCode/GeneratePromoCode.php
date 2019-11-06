@@ -6,6 +6,7 @@ use Omatech\LaravelPromoCodes\Contracts\GeneratePromoCode as GeneratePromoCodeIn
 use Omatech\LaravelPromoCodes\Contracts\PromoCode as PromoCodeInterface;
 use Omatech\LaravelPromoCodes\Models\RelatedModel;
 use Omatech\LaravelPromoCodes\Repositories\PromoCodeRepository;
+use Omatech\LaravelPromoCodes\Repositories\ReferralRepository;
 use Omatech\LaravelPromoCodes\Traits\Codeable;
 
 class GeneratePromoCode extends PromoCodeRepository implements GeneratePromoCodeInterface
@@ -28,10 +29,11 @@ class GeneratePromoCode extends PromoCodeRepository implements GeneratePromoCode
     public function __construct(
         PromoCodeInterface $promoCode,
         FindPromoCodeByCode $findPromoCodeByCode,
-        RelatedModel $relatedModel
+        RelatedModel $relatedModel,
+        ReferralRepository $referral
     )
     {
-        parent::__construct($promoCode);
+        parent::__construct($promoCode, $referral);
         $this->findPromoCodeByCode = $findPromoCodeByCode;
         $this->relatedModel = $relatedModel;
     }

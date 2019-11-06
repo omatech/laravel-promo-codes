@@ -6,6 +6,7 @@ use Omatech\LaravelPromoCodes\Models\PromoCode;
 $factory->define(PromoCode::class, function (Faker $faker) {
 
     return [
+        'user_id' => 0,
         'type' => $faker->word,
         'title' => $faker->text(45),
         'pct_discount' => $faker->randomFloat(2, 0, 100),

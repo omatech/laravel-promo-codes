@@ -9,13 +9,19 @@ use Omatech\LaravelPromoCodes\Contracts\FindAllPromoCodes;
 use Omatech\LaravelPromoCodes\Contracts\FindPromoCode;
 use Omatech\LaravelPromoCodes\Contracts\FindPromoCodeByCode;
 use Omatech\LaravelPromoCodes\Contracts\GeneratePromoCode;
+use Omatech\LaravelPromoCodes\Contracts\CheckCodeConditions;
+use Omatech\LaravelPromoCodes\Contracts\CreateReferral;
+use Omatech\LaravelPromoCodes\Contracts\DeleteReferral;
 use Omatech\LaravelPromoCodes\Contracts\PromoCode as PromoCodeInterface;
+use Omatech\LaravelPromoCodes\Contracts\UpdateIfPromoMember;
 use Omatech\LaravelPromoCodes\Contracts\UpdatePromoCode;
+use Omatech\LaravelPromoCodes\Repositories\PromoCode\UpdateWhenConfirmed;
 use Omatech\LaravelPromoCodes\Values\Relation;
 
 class PromoCode implements PromoCodeInterface
 {
     private $id;
+    private $userId;
     private $type;
     private $title;
     private $pctDiscount;
@@ -30,6 +36,9 @@ class PromoCode implements PromoCodeInterface
     private $active;
     private $code;
     private $action;
+
+    private $referral=[];
+    private $user=[];
 
     /**
      * @param int $id
@@ -70,6 +79,33 @@ class PromoCode implements PromoCodeInterface
         return app()->make(CheckRelated::class)->make($relation);
     }
 
+
+    public function checkCodeConditions(int $authUserId): bool
+    {
+        return app()->make(CheckCodeConditions::class)->make($this, $authUserId);
+    }
+
+    public function createReferral(int $codeId, int $referralUserId, int $authUserId): ?int
+    {
+        return app()->make(CreateReferral::class)->make($codeId, $referralUserId, $authUserId);
+    }
+
+    public function deleteReferral(int $referralId)
+    {
+        return app()->make(DeleteReferral::class)->make($referralId);
+    }
+
+    public function updateWhenConfirmed(int $referralCodeId)
+    {
+        return app()->make(UpdateWhenConfirmed::class)->make($referralCodeId);
+    }
+
+    public function updateIfPromoMember(int $referralCodeId, int $promoUserId)
+    {
+        return app()->make(UpdateIfPromoMember::class)->make($referralCodeId, $promoUserId);
+    }
+
+
     /**
      * @param array $data
      * @return null|PromoCodeInterface
@@ -78,6 +114,7 @@ class PromoCode implements PromoCodeInterface
     {
         $fillable = [
             'id',
+            'user_id',
             'type',
             'title',
             'pct_discount',
@@ -92,6 +129,8 @@ class PromoCode implements PromoCodeInterface
             'active',
             'code',
             'action',
+            'referral', 
+            'user'
         ];
 
         foreach ($fillable as $field) {
@@ -190,6 +229,22 @@ class PromoCode implements PromoCodeInterface
     public function setId(int $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setUserId(int $userId): void
+    {
+        $this->userId = $userId;
     }
 
     /**
@@ -452,6 +507,40 @@ class PromoCode implements PromoCodeInterface
     {
         $this->action = $action;
     }
+
+
+    /**
+     * @return mixed
+     */
+    public function getReferral()
+    {
+        return $this->referral;
+    }
+
+    /**
+     * @param mixed $action
+     */
+    public function setReferral($referral): void
+    {
+        $this->referral = $referral;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $action
+     */
+    public function setUser($user): void
+    {
+        $this->user = $user;
+    }
+
 
 
 }
