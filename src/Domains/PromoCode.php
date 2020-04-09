@@ -36,6 +36,7 @@ class PromoCode implements PromoCodeInterface
     private $active;
     private $code;
     private $action;
+    private $itsAReferral;
 
     private $referral=[];
     private $user=[];
@@ -100,7 +101,7 @@ class PromoCode implements PromoCodeInterface
         return app()->make(UpdateWhenConfirmed::class)->make($referralCodeId);
     }
 
-    public function updateIfPromoMember(int $referralCodeId, int $promoUserId)
+    public function updateIfPromoMember(int $referralCodeId, int $promoUserId): bool
     {
         return app()->make(UpdateIfPromoMember::class)->make($referralCodeId, $promoUserId);
     }
@@ -130,7 +131,8 @@ class PromoCode implements PromoCodeInterface
             'code',
             'action',
             'referral', 
-            'user'
+            'user',
+            'its_a_referral'
         ];
 
         foreach ($fillable as $field) {
@@ -541,6 +543,23 @@ class PromoCode implements PromoCodeInterface
         $this->user = $user;
     }
 
+    /**
+     * Get the value of itsAReferral
+     */ 
+    public function getItsAReferral()
+    {
+        return $this->itsAReferral;
+    }
 
+    /**
+     * Set the value of itsAReferral
+     *
+     * @return  self
+     */ 
+    public function setItsAReferral($itsAReferral)
+    {
+        $this->itsAReferral = $itsAReferral;
 
+        return $this;
+    }
 }

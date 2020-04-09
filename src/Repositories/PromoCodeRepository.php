@@ -53,16 +53,18 @@ class PromoCodeRepository extends BaseRepository
         }
     }
 
-    public function updateIfPromoMember($codeId, $referralCodeId){
+    public function updateIfPromoMember($codeId, $referralCodeId) : bool{
         try {
             $promoCode = $this->model()::where('id', $codeId);
             $promoCode->decrement('max_uses', 1);
             $promoCode = $promoCode->first();
             if($promoCode->max_uses == 0){ $this->model()::where('id', $codeId)->update(['active' => 0]); }
-            $this->referral->updateWhenUsed($referralCodeId);
+            $this->referral->updatedWhenUsed($referralCodeId);
             return true;
-        } catch (Exception $e) {
-            return $e;
+        } catch (\Exception $e) {
+            \Log::error("Error Update If Promo Member");
+            \Log::error($e->getMessage());
+            return false;
         }
     }
 }

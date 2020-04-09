@@ -39,7 +39,7 @@ class ReferralRepository extends BaseRepository
         }
     }
 
-    public function updatedWhenUSed($referralCodeId)
+    public function updatedWhenUsed($referralCodeId)
     {
         $this->model()::where('id',  $referralCodeId)->update(['used' => 1]);  
     }

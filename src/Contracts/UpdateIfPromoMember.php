@@ -2,8 +2,7 @@
 
 namespace Omatech\LaravelPromoCodes\Contracts;
 
-
 interface UpdateIfPromoMember
 {
-    public function make(int $referralCodeId, int $promoUserId): void;
+    public function make(int $referralCodeId, int $promoUserId): bool;
 }

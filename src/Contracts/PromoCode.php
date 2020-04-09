@@ -2,6 +2,7 @@
 
 namespace Omatech\LaravelPromoCodes\Contracts;
 
+
 interface PromoCode
 {
     public function disable(): void;
@@ -18,16 +19,14 @@ interface PromoCode
 
     public function checkCodeConditions(int $authUserId): bool;
 
+    public function updateIfPromoMember(int $codeId, int $referralCodeId): bool;
+    
     // public function createReferral(int $code, int $referralUser, int $authUserId): int;
 
     // public function updateReferral(int $referralId, int $promoUserId): void;
 
-
-
-
     // public function promoCodeConstructWhenReferral(int $promoUserId): array;
 
-    // public function updateIfPromoMember(int $codeId, int $referralCodeId): bool;
 
 
 }

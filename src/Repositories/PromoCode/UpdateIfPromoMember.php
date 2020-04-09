@@ -11,9 +11,9 @@ class UpdateIfPromoMember extends PromoCodeRepository implements UpdateIfPromoMe
      * @param int $id
      * @throws \Throwable
      */
-    public function make($codeId, $referralCodeId): void
+    public function make($codeId, $referralCodeId): bool
     {
-        $this->updateIfPromoMember($codeId, $referralCodeId);
+        return $this->updateIfPromoMember($codeId, $referralCodeId);
     }
 
 }

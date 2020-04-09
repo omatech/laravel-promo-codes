@@ -29,6 +29,7 @@ use Omatech\LaravelPromoCodes\Repositories\PromoCode\GeneratePromoCode;
 use Omatech\LaravelPromoCodes\Repositories\PromoCode\UpdatePromoCode;
 use Omatech\LaravelPromoCodes\Repositories\PromoCode\UpdateWhenConfirmed;
 use Omatech\LaravelPromoCodes\Repositories\Related\CheckRelated;
+use Omatech\LaravelPromoCodes\Repositories\PromoCode\UpdateIfPromoMember;
 
 class LaravelPromoCodesServiceProvider extends ServiceProvider
 {
