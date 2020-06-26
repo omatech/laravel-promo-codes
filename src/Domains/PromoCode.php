@@ -26,6 +26,7 @@ class PromoCode implements PromoCodeInterface
     private $title;
     private $pctDiscount;
     private $amountDiscount;
+    private $amountDiscountByTotalPrice;
     private $pctShippingDiscount;
     private $maxUses;
     private $startDate;
@@ -120,6 +121,7 @@ class PromoCode implements PromoCodeInterface
             'title',
             'pct_discount',
             'amount_discount',
+            'amount_discount_by_total_price',
             'pct_shipping_discount',
             'max_uses',
             'start_date',
@@ -559,6 +561,26 @@ class PromoCode implements PromoCodeInterface
     public function setItsAReferral($itsAReferral)
     {
         $this->itsAReferral = $itsAReferral;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of amountDiscountByTotalPrice
+     */ 
+    public function getAmountDiscountByTotalPrice()
+    {
+        return $this->amountDiscountByTotalPrice;
+    }
+
+    /**
+     * Set the value of amountDiscountByTotalPrice
+     *
+     * @return  self
+     */ 
+    public function setAmountDiscountByTotalPrice($amountDiscountByTotalPrice)
+    {
+        $this->amountDiscountByTotalPrice = $amountDiscountByTotalPrice;
 
         return $this;
     }

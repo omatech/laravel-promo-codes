@@ -15,6 +15,7 @@ class PromoCode extends Model
         'title',
         'pct_discount',
         'amount_discount',
+        'amount_discount_by_total_price',
         'pct_shipping_discount',
         'max_uses',
         'start_date',
