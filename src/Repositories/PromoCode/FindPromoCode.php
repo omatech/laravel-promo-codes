@@ -15,7 +15,7 @@ class FindPromoCode extends PromoCodeRepository implements FindPromoCodeInterfac
      */
     public function make(int $id): ?PromoCodeInterface
     {
-        $model = $this->find($id);
+        $model = $this->model->with('user','referral', 'related')->find($id);
 
         if (is_null($model))
             return null;

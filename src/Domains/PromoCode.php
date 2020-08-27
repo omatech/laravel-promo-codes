@@ -41,6 +41,7 @@ class PromoCode implements PromoCodeInterface
 
     private $referral=[];
     private $user=[];
+    private $related=[];
 
     /**
      * @param int $id
@@ -134,7 +135,8 @@ class PromoCode implements PromoCodeInterface
             'action',
             'referral', 
             'user',
-            'its_a_referral'
+            'its_a_referral',
+            'related',
         ];
 
         foreach ($fillable as $field) {
@@ -583,5 +585,26 @@ class PromoCode implements PromoCodeInterface
         $this->amountDiscountByTotalPrice = $amountDiscountByTotalPrice;
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRelated()
+    {
+        return $this->related;
+    }
+
+    /**
+     * @param array $related
+     */
+    public function setRelated($related)
+    {
+        $this->related = $related;
+    }
+
+    public function hasRelated(): bool
+    {
+        return !empty($this->related);
     }
 }

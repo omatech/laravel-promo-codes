@@ -42,4 +42,9 @@ class PromoCode extends Model
     public function referral(){
         return $this->hasOne(Referral::class, 'user_referral_id', 'user_id');
     }
+
+    public function related()
+    {
+        return $this->hasMany(RelatedModel::class);
+    }
 }

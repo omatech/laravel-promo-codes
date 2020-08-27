@@ -64,6 +64,15 @@ class GeneratePromoCode extends PromoCodeRepository implements GeneratePromoCode
                 'model_type' => $data['related_type'],
                 'promo_code_id' => $model->id,
             ]);
+
+        }elseif(isset($model->id) && isset($data['related']) && isset($data['related_type']) && is_array($data['related'])){
+            foreach ($data['related'] as $relatedId){
+                $this->relatedModel->create([
+                    'model_id' => $relatedId,
+                    'model_type' => $data['related_type'],
+                    'promo_code_id' => $model->id,
+                ]);
+            }
         }
 
         return $this->promoCode->fromArray($model->toArray());
