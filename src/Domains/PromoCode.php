@@ -38,6 +38,7 @@ class PromoCode implements PromoCodeInterface
     private $code;
     private $action;
     private $itsAReferral;
+    private $lastOrderDays;
 
     private $referral=[];
     private $user=[];
@@ -137,6 +138,7 @@ class PromoCode implements PromoCodeInterface
             'user',
             'its_a_referral',
             'related',
+            'last_order_days',
         ];
 
         foreach ($fillable as $field) {
@@ -606,5 +608,22 @@ class PromoCode implements PromoCodeInterface
     public function hasRelated(): bool
     {
         return !empty($this->related);
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getLastOrderDays(): ?int
+    {
+        return $this->lastOrderDays;
+    }
+
+    /**
+     * @param mixed $lastOrderDays
+     */
+    public function setLastOrderDays(int $lastOrderDays = null)
+    {
+        $this->lastOrderDays = $lastOrderDays;
     }
 }
