@@ -26,7 +26,8 @@ class PromoCode extends Model
         'active',
         'code',
         'action',
-        'its_a_referral'
+        'its_a_referral',
+        'last_order_days',
     ];
 
 
