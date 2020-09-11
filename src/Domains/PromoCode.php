@@ -39,6 +39,7 @@ class PromoCode implements PromoCodeInterface
     private $action;
     private $itsAReferral;
     private $lastOrderDays;
+    private $relatedType;
 
     private $referral=[];
     private $user=[];
@@ -134,11 +135,12 @@ class PromoCode implements PromoCodeInterface
             'active',
             'code',
             'action',
-            'referral', 
+            'referral',
             'user',
             'its_a_referral',
             'related',
             'last_order_days',
+            'related_type',
         ];
 
         foreach ($fillable as $field) {
@@ -551,7 +553,7 @@ class PromoCode implements PromoCodeInterface
 
     /**
      * Get the value of itsAReferral
-     */ 
+     */
     public function getItsAReferral()
     {
         return $this->itsAReferral;
@@ -561,7 +563,7 @@ class PromoCode implements PromoCodeInterface
      * Set the value of itsAReferral
      *
      * @return  self
-     */ 
+     */
     public function setItsAReferral($itsAReferral)
     {
         $this->itsAReferral = $itsAReferral;
@@ -571,7 +573,7 @@ class PromoCode implements PromoCodeInterface
 
     /**
      * Get the value of amountDiscountByTotalPrice
-     */ 
+     */
     public function getAmountDiscountByTotalPrice()
     {
         return $this->amountDiscountByTotalPrice;
@@ -581,7 +583,7 @@ class PromoCode implements PromoCodeInterface
      * Set the value of amountDiscountByTotalPrice
      *
      * @return  self
-     */ 
+     */
     public function setAmountDiscountByTotalPrice($amountDiscountByTotalPrice)
     {
         $this->amountDiscountByTotalPrice = $amountDiscountByTotalPrice;
@@ -625,5 +627,21 @@ class PromoCode implements PromoCodeInterface
     public function setLastOrderDays(int $lastOrderDays = null)
     {
         $this->lastOrderDays = $lastOrderDays;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRelatedType()
+    {
+        return $this->relatedType;
+    }
+
+    /**
+     * @param mixed $relatedType
+     */
+    public function setRelatedType($relatedType)
+    {
+        $this->relatedType = $relatedType;
     }
 }
