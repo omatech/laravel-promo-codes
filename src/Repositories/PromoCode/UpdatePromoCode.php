@@ -27,7 +27,7 @@ class UpdatePromoCode extends PromoCodeRepository implements UpdatePromoCodeInte
         'action',
         'active',
         'last_order_days',
-
+        'order_minimum_purchase_price',
     ];
     /**
      * @var RelatedModel

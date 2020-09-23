@@ -28,6 +28,7 @@ class PromoCode extends Model
         'action',
         'its_a_referral',
         'last_order_days',
+        'order_minimum_purchase_price',
     ];
 
 

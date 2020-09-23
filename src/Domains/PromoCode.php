@@ -40,6 +40,7 @@ class PromoCode implements PromoCodeInterface
     private $itsAReferral;
     private $lastOrderDays;
     private $relatedType;
+    private $orderMinimumPurchasePrice;
 
     private $referral=[];
     private $user=[];
@@ -140,6 +141,7 @@ class PromoCode implements PromoCodeInterface
             'its_a_referral',
             'related',
             'last_order_days',
+            'order_minimum_purchase_price',
             'related_type',
         ];
 
@@ -643,5 +645,21 @@ class PromoCode implements PromoCodeInterface
     public function setRelatedType($relatedType)
     {
         $this->relatedType = $relatedType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrderMinimumPurchasePrice()
+    {
+        return $this->orderMinimumPurchasePrice;
+    }
+
+    /**
+     * @param mixed $orderMinimumPurchasePrice
+     */
+    public function setOrderMinimumPurchasePrice($orderMinimumPurchasePrice)
+    {
+        $this->orderMinimumPurchasePrice = $orderMinimumPurchasePrice;
     }
 }
